@@ -269,7 +269,8 @@ h2 {
 
 ## OUTPUT
 
-![im](https://github.com/user-attachments/assets/1c8ff661-e9a6-4a81-ae2c-7f1e48a60d19)
+![image](https://github.com/user-attachments/assets/e5efe8c9-9515-4c52-b75f-a2ac152b6e0b)
+
 
 
 
