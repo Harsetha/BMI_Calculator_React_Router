@@ -73,66 +73,77 @@ function App() {
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [bmi, setBmi] = useState(null);
-  const [category, setCategory] = useState("");
+  const [message, setMessage] = useState("");
 
   const calculateBMI = () => {
     if (weight && height) {
       const heightInMeters = height / 100;
-      const bmiValue = (weight / (heightInMeters * heightInMeters)).toFixed(2);
-      setBmi(bmiValue);
-
-      if (bmiValue < 18.5) setCategory("Underweight");
-      else if (bmiValue < 25) setCategory("Normal weight");
-      else if (bmiValue < 30) setCategory("Overweight");
-      else setCategory("Obesity");
+      const calculatedBMI = (
+        weight /
+        (heightInMeters * heightInMeters)
+      ).toFixed(2);
+      setBmi(calculatedBMI);
+      getBMICategory(calculatedBMI);
+    } else {
+      alert("Please enter valid height and weight.");
     }
   };
 
-  const reset = () => {
+  const getBMICategory = (bmi) => {
+    if (bmi < 18.5) setMessage("Underweight");
+    else if (bmi >= 18.5 && bmi < 24.9) setMessage("Normal weight");
+    else if (bmi >= 25 && bmi < 29.9) setMessage("Overweight");
+    else setMessage("Obese");
+  };
+
+  const resetFields = () => {
     setWeight("");
     setHeight("");
     setBmi(null);
-    setCategory("");
+    setMessage("");
   };
 
   return (
     <div className="container">
       <h1>BMI Calculator</h1>
-      <div className="card">
-        <div className="input-group">
-          <label>Weight (kg):</label>
-          <input
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-          />
+      <div className="input-group">
+        <label>Weight (kg):</label>
+        <input
+          type="number"
+          value={weight}
+          onChange={(e) => setWeight(e.target.value)}
+          placeholder="Enter weight"
+        />
+      </div>
+      <div className="input-group">
+        <label>Height (cm):</label>
+        <input
+          type="number"
+          value={height}
+          onChange={(e) => setHeight(e.target.value)}
+          placeholder="Enter height"
+        />
+      </div>
+      <button onClick={calculateBMI}>Calculate</button>
+      <button className="reset" onClick={resetFields}>
+        Reset
+      </button>
+
+      {bmi && (
+        <div className="result">
+          <h2>Your BMI: {bmi}</h2>
+          <p className="message">{message}</p>
         </div>
-        <div className="input-group">
-          <label>Height (cm):</label>
-          <input
-            type="number"
-            value={height}
-            onChange={(e) => setHeight(e.target.value)}
-          />
-        </div>
-        <div className="buttons">
-          <button className="btn calculate" onClick={calculateBMI}>Calculate</button>
-          <button className="btn reset" onClick={reset}>Reset</button>
-        </div>
-        {bmi && (
-          <div className="result">
-            <h2>Your BMI: {bmi}</h2>
-            <p className={`category ${category.toLowerCase().replace(" ", "-")}`}>
-              Category: {category}
-            </p>
-          </div>
-        )}
+      )}
+      <div>
+        <footer>HARSETHA J (212223220032)</footer>
       </div>
     </div>
   );
 }
 
 export default App;
+        
 ```
 ```
 app.css
